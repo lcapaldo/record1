@@ -19,7 +19,7 @@ void record1_set_codepoint(struct record1* s, size_t index, int32_t value)
   if( s->cap < index ) {
     return;
   }
-  if( index > s->len )
+  if( index >= s->len )
   {
      s->len = index + 1;
   }
@@ -30,12 +30,12 @@ void record1_set_codepoint(struct record1* s, size_t index, int32_t value)
   }
 
   int32_t lowbits = (value & 0xffff);
-  int32_t hibits  = ((value >> 16) & 0xff) | 0x9f;
+  int32_t hibits = (value & 0x001f0000) >> 16;
   if( !s->aux )
   {
     s->aux = malloc(s->cap);
   }
-  s->str[index] = (char)hibits;
+  s->str[index] = (char)(hibits | 0x80);
   s->aux[index] = lowbits;
 }
 
