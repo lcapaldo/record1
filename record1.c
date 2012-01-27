@@ -9,7 +9,9 @@ int32_t record1_get_codepoint(struct record1* s, size_t index)
   if( (val & 0x7f) == val ) {
     return val;
   }
-  return -1;
+
+  int32_t r = ((val & 0x1f) << 16) | s->aux[index];
+  return r;
 }
 
 void record1_set_codepoint(struct record1* s, size_t index, int32_t value)
