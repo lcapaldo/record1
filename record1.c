@@ -2,7 +2,7 @@
 
 int32_t record1_get_codepoint(struct record1* s, size_t index)
 {
-  if( s->len < index ) {
+  if( s->len <= index ) {
     return -1;
   }
   int32_t val = s->str[index];
@@ -16,7 +16,7 @@ int32_t record1_get_codepoint(struct record1* s, size_t index)
 
 void record1_set_codepoint(struct record1* s, size_t index, int32_t value)
 {
-  if( s->cap < index ) {
+  if( s->cap <= index + 1 ) {
     return;
   }
   if( index >= s->len )
