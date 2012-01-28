@@ -33,7 +33,7 @@ void record1_set_codepoint(struct record1* s, size_t index, int32_t value)
   int32_t hibits = (value & 0x001f0000) >> 16;
   if( !s->aux )
   {
-    s->aux = malloc(s->cap);
+    s->aux = malloc(s->cap*sizeof(s->aux[0]));
   }
   s->str[index] = (char)(hibits | 0x80);
   s->aux[index] = lowbits;
